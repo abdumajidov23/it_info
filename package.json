@@ -1,0 +1,17 @@
+{
+  "name": "itinfo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "config": "^3.3.12",
+    "express": "^4.19.2",
+    "mongoos": "^0.0.1-security"
+  }
+}
