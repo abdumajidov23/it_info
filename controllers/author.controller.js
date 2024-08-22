@@ -1,41 +1,23 @@
 const { errorHandler } = require('../helpers/error_handler');
 const author = require('../schemas/author');
+const { authorValidation } = require('../validations/author.validation');
 
 const addAuthor = async (req, res) => {
     try {
-        const { 
-            author_first_name, 
-            author_last_name, 
-            author_nick_name, 
-            author_email, 
-            author_phone, 
-            author_password, 
-            author_info, 
-            author_position, 
-            author_photo, 
-            is_expert, 
-            author_is_active 
-        } = req.body;
+        const { error, value } = authorValidation(req.body);
 
-        const newAuthor = await author.create({
-            author_first_name, 
-            author_last_name, 
-            author_nick_name, 
-            author_email, 
-            author_phone, 
-            author_password, 
-            author_info, 
-            author_position, 
-            author_photo, 
-            is_expert, 
-            author_is_active
-        });
+        if (error) {
+            return res.status(400).send({ message: error.details.map(x => x.message).join(', ') });
+        }
+
+        const newAuthor = await author.create(value);
 
         res.status(201).send({ message: "Yangi muallif qo'shildi", newAuthor });
     } catch (error) {
         errorHandler(res, error);
     }
 };
+
 
 const getAuthors = async (req, res) => {
     try {
